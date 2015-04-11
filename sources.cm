@@ -13,4 +13,5 @@ is
   chapter-03/cell.sml
   chapter-03/counter.sig
   chapter-03/counter.sml
+  chapter-03/sieve.sml
   chapter-03/main.sml

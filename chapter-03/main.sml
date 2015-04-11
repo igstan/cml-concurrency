@@ -35,4 +35,16 @@ struct
     in
       RunCML.doit (entry, schedulingQuantum)
     end
+
+  fun primes () =
+    let
+      fun entry () =
+        let
+          val ps = Sieve.primes 100
+        in
+          List.app (fn p => print ("prime: "^ Int.toString p ^"\n")) ps
+        end
+    in
+      RunCML.doit (entry, schedulingQuantum)
+    end
 end
