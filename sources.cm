@@ -1,6 +1,7 @@
 group
 
 is
+  (* CML ———————————————————————————————————————————————————————————————————— *)
   $cml/cml.cm        (* CML core.                      *)
   $cml/cml-lib.cm    (* CML library code.              *)
   $cml/basis.cm      (* CML version of $/basis.cm.     *)
@@ -9,6 +10,7 @@ is
   $cml/unix-lib.cm   (* CML version of $/unix-lib.cm.  *)
   $cml/trace-cml.cm  (* CML debugging support.         *)
 
+  (* Chapter 3 —————————————————————————————————————————————————————————————— *)
   chapter-03/cell.sig
   chapter-03/cell.sml
   chapter-03/counter.sig
@@ -22,3 +24,7 @@ is
   chapter-03/swap-chan.sig
   chapter-03/swap-chan.sml
   chapter-03/main.sml
+
+  (* Chapter 4 —————————————————————————————————————————————————————————————— *)
+  chapter-04/merge-sort.sml
+  chapter-04/main.sml
