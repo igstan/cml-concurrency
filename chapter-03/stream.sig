@@ -1,6 +1,6 @@
 signature STREAM =
 sig
-  type 'a stream
+  type 'a stream = 'a CML.chan
 
   (**
    * Build a stream of `'a` elements, computed from the previous value.
