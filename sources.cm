@@ -19,4 +19,6 @@ is
   chapter-03/fibonacci.sml
   chapter-03/dir-chan.sig
   chapter-03/dir-chan.sml
+  chapter-03/swap-chan.sig
+  chapter-03/swap-chan.sml
   chapter-03/main.sml
