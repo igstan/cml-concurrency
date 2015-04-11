@@ -1,3 +1,6 @@
+(*
+ * Listing 3.5 in the book.
+ *)
 signature DIR_CHAN =
 sig
   type 'a in_chan

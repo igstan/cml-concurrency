@@ -1,3 +1,6 @@
+(*
+ * Listing 3.6 in the book.
+ *)
 structure DirChan : DIR_CHAN =
 struct
   datatype 'a in_chan = IN of 'a CML.chan
