@@ -8,3 +8,7 @@ is
   $cml/inet-lib.cm   (* CML version of $/inet-lib.cm.  *)
   $cml/unix-lib.cm   (* CML version of $/unix-lib.cm.  *)
   $cml/trace-cml.cm  (* CML debugging support.         *)
+
+  chapter-03/cell.sig
+  chapter-03/cell.sml
+  chapter-03/main.sml
