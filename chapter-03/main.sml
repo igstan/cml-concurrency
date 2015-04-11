@@ -9,13 +9,15 @@ struct
     let
       fun entry () =
         let
-          val cell = Cell.cell 0
+          open Cell
+          (* open SelectiveCell *)
+          val cell = cell 0
         in
-          Cell.put cell 1;
-          Cell.put cell 2;
-          Cell.put cell 3;
-          Cell.put cell 4;
-          print ("cell: "^ Int.toString (Cell.get cell) ^"\n")
+          put cell 1
+        ; put cell 2
+        ; put cell 3
+        ; put cell 4
+        ; print ("cell: "^ Int.toString (get cell) ^"\n")
         end
     in
       RunCML.doit (entry, schedulingQuantum)

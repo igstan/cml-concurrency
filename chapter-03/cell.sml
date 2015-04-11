@@ -34,3 +34,31 @@ struct
   fun put (CELL { reqCh, ... }) a =
     send (reqCh, PUT a)
 end
+
+structure SelectiveCell : CELL =
+struct
+  open CML
+
+  datatype 'a cell =
+    CELL of {
+      getCh : 'a chan,
+      putCh : 'a chan
+    }
+
+  fun cell a =
+    let
+      val getCh = channel ()
+      val putCh = channel ()
+      fun loop a = select [
+        wrap (sendEvt (getCh, a), fn () => loop a),
+        wrap (recvEvt putCh, loop)
+      ]
+    in
+      spawn (fn () => loop a);
+      CELL { getCh = getCh, putCh = putCh }
+    end
+
+  fun get (CELL { getCh, ... }) = recv getCh
+
+  fun put (CELL { putCh, ... }) a = send (putCh, a)
+end
