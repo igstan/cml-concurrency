@@ -16,4 +16,5 @@ is
   chapter-03/sieve.sml
   chapter-03/stream.sig
   chapter-03/stream.sml
+  chapter-03/fibonacci.sml
   chapter-03/main.sml

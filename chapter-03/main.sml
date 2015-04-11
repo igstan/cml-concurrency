@@ -61,4 +61,16 @@ struct
     in
       RunCML.doit (entry, schedulingQuantum)
     end
+
+  fun fibonacci () =
+    let
+      fun entry () =
+        let
+          val fibs = Stream.takeList 10 (Fibonacci.fibonacci ())
+        in
+          List.app (fn p => print ("num: "^ Int.toString p ^"\n")) fibs
+        end
+    in
+      RunCML.doit (entry, schedulingQuantum)
+    end
 end
