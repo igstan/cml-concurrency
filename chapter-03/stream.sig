@@ -10,7 +10,7 @@ sig
   (**
    * Consume a finite amount of elements from a stream and put them in a list.
    *)
-  val take : int -> 'a stream -> 'a list
+  val takeList : int -> 'a stream -> 'a list
 
   (**
    * Same as `List.filter`, only on streams.

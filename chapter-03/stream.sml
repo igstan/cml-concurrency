@@ -17,7 +17,7 @@ struct
       ch
     end
 
-  fun take n stream =
+  fun takeList n stream =
     let
       fun loop 0 result = rev result
         | loop i result = loop (i - 1) ((recv stream) :: result)
