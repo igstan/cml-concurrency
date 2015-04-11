@@ -20,4 +20,19 @@ struct
     in
       RunCML.doit (entry, schedulingQuantum)
     end
+
+  fun counters () =
+    let
+      fun entry () =
+        let
+          val c = Counter.counter 0
+          val a = recv c
+          val b = recv c
+          val c = recv c
+        in
+          print ("sum: "^ Int.toString (a + b + c) ^"\n")
+        end
+    in
+      RunCML.doit (entry, schedulingQuantum)
+    end
 end
