@@ -1,4 +1,4 @@
-structure Main =
+structure Chapter03 =
 struct
   open CML
   open TextIO
