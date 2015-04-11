@@ -14,4 +14,6 @@ is
   chapter-03/counter.sig
   chapter-03/counter.sml
   chapter-03/sieve.sml
+  chapter-03/stream.sig
+  chapter-03/stream.sml
   chapter-03/main.sml

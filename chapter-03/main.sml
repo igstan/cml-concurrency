@@ -47,4 +47,18 @@ struct
     in
       RunCML.doit (entry, schedulingQuantum)
     end
+
+  fun streams () =
+    let
+      fun entry () =
+        let
+          val nums = Stream.iterate (fn i => i + 1) 0
+          val odds = Stream.filter (fn a => (a mod 2) = 0) nums
+          val res = Stream.take 10 odds
+        in
+          List.app (fn p => print ("num: "^ Int.toString p ^"\n")) res
+        end
+    in
+      RunCML.doit (entry, schedulingQuantum)
+    end
 end
