@@ -16,12 +16,10 @@ struct
     let
       fun sum () =
         let
-          (*
-           * The process network would deadlock if these two sends were swaped,
-           * without swapping the reads in `copy`, too.
-           *)
-          val a = recv inCh1
-          val b = recv inCh2
+          val (a, b) = select [
+            wrap (recvEvt inCh1, fn a => (a, recv inCh2)),
+            wrap (recvEvt inCh2, fn b => (recv inCh1, b))
+          ]
           val r = a + b handle
             Overflow =>
               let in
@@ -49,12 +47,10 @@ struct
         let
           val a = recv inCh
         in
-          (*
-           * The process network would deadlock if these two sends were swaped,
-           * without swapping the reads in `add`, too.
-           *)
-          send (outCh1, a)
-        ; send (outCh2, a)
+          select [
+            wrap (sendEvt (outCh1, a), fn () => send (outCh2, a)),
+            wrap (sendEvt (outCh2, a), fn () => send (outCh1, a))
+          ]
         end
     in
       forever () loop
