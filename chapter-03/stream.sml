@@ -9,12 +9,12 @@ struct
       val ch = channel ()
       fun count prev =
         let in
-          send (ch, prev);
-          count (producer prev)
+          send (ch, prev)
+        ; count (producer prev)
         end
     in
-      spawn (fn () => count start);
-      ch
+      spawn (fn () => count start)
+    ; ch
     end
 
   fun takeList n stream =
@@ -37,7 +37,7 @@ struct
         ; loop ()
         end
     in
-      spawn loop;
-      outChan
+      spawn loop
+    ; outChan
     end
 end

@@ -17,8 +17,8 @@ struct
         ; loop ()
         end
     in
-      spawn loop;
-      outChan
+      spawn loop
+    ; outChan
     end
 
   fun sieve () =
@@ -28,12 +28,12 @@ struct
         let
           val prime = recv chan
         in
-          send (primes, prime);
-          head (filter prime chan)
+          send (primes, prime)
+        ; head (filter prime chan)
         end
     in
-      spawn (fn () => head (Counter.counter 2));
-      primes
+      spawn (fn () => head (Counter.counter 2))
+    ; primes
     end
 
   fun primes n =

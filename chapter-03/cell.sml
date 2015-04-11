@@ -21,14 +21,14 @@ struct
           GET => (send (resCh, a); server a)
         | PUT a => server a
     in
-      spawn (fn () => server a);
-      CELL { reqCh = reqCh, resCh = resCh }
+      spawn (fn () => server a)
+    ; CELL { reqCh = reqCh, resCh = resCh }
     end
 
   fun get (CELL { reqCh, resCh }) =
     let in
-      send (reqCh, GET);
-      recv resCh
+      send (reqCh, GET)
+    ; recv resCh
     end
 
   fun put (CELL { reqCh, ... }) a =
@@ -54,8 +54,8 @@ struct
         wrap (recvEvt putCh, loop)
       ]
     in
-      spawn (fn () => loop a);
-      CELL { getCh = getCh, putCh = putCh }
+      spawn (fn () => loop a)
+    ; CELL { getCh = getCh, putCh = putCh }
     end
 
   fun get (CELL { getCh, ... }) = recv getCh
