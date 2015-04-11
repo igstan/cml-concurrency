@@ -11,6 +11,7 @@ struct
         let
           open Cell
           (* open SelectiveCell *)
+          (* open DirChanCell *)
           val cell = cell 0
         in
           put cell 1
