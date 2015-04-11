@@ -94,6 +94,11 @@ struct
     let
       val (getInCh, getOutCh) = DirChan.channel ()
       val (putInCh, putOutCh) = DirChan.channel ()
+      (*
+       * We need selective communication here because we can't know whether
+       * a client will try to read or write a value. So, whichever comes first
+       * is the winner.
+       *)
       fun loop a = select [
         wrap (DirChan.sendEvt (getOutCh, a), fn () => loop a),
         wrap (DirChan.recvEvt putInCh, loop)
