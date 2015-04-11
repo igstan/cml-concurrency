@@ -1,0 +1,10 @@
+group
+
+is
+  $cml/cml.cm        (* CML core.                      *)
+  $cml/cml-lib.cm    (* CML library code.              *)
+  $cml/basis.cm      (* CML version of $/basis.cm.     *)
+  $cml/smlnj-lib.cm  (* CML version of $/smlnj-lib.cm. *)
+  $cml/inet-lib.cm   (* CML version of $/inet-lib.cm.  *)
+  $cml/unix-lib.cm   (* CML version of $/unix-lib.cm.  *)
+  $cml/trace-cml.cm  (* CML debugging support.         *)
