@@ -1,3 +1,6 @@
+(*
+ * Listing 3.1 in the book.
+ *)
 structure Cell : CELL =
 struct
   open CML
@@ -35,6 +38,9 @@ struct
     send (reqCh, PUT a)
 end
 
+(*
+ * Listing 3.4 in the book.
+ *)
 structure SelectiveCell : CELL =
 struct
   open CML

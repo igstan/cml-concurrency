@@ -1,3 +1,6 @@
+(*
+ * Listings 3.2 and 3.3 in the book.
+ *)
 structure Fibonacci =
 struct
   open CML
