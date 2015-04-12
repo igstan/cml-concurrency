@@ -5,13 +5,6 @@ structure Fibonacci =
 struct
   open CML
 
-  fun forever start f =
-    let
-      fun loop s = loop (f s)
-    in
-      ignore (spawn (fn () => loop start))
-    end
-
   (**
    * Add numbers from two streams.
    *)
@@ -33,7 +26,7 @@ struct
           send (outCh, r)
         end
     in
-      forever () sum
+      Pattern.repeat sum
     end
 
   fun delay start inCh outCh =
@@ -41,7 +34,7 @@ struct
       fun loop NONE     = SOME (recv inCh)
         | loop (SOME a) = (send (outCh, a); NONE)
     in
-      forever start loop
+      Pattern.forever start loop
     end
 
   fun copy inCh outCh1 outCh2 =
@@ -56,7 +49,7 @@ struct
           ]
         end
     in
-      forever () loop
+      Pattern.repeat loop
     end
 
   fun fibonacci () =

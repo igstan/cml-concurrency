@@ -12,13 +12,6 @@ struct
       wrap (evB, fn b => f (sync evA, b))
     ]
 
-  fun forever start f =
-    let
-      fun loop s = loop (f s)
-    in
-      ignore (spawn (fn () => loop start))
-    end
-
   (**
    * Power series addition.
    *)
@@ -27,7 +20,7 @@ struct
       val (inCh, outCh) = DirChan.channel ()
       fun add (f, g) = DirChan.send (outCh, f + g)
     in
-      forever () (fn () => combine add (DirChan.recvEvt psF, DirChan.recvEvt psG))
+      Pattern.repeat (fn _ => combine add (DirChan.recvEvt psF, DirChan.recvEvt psG))
     ; inCh
     end
 
@@ -38,7 +31,7 @@ struct
     let
       val (inCh, outCh) = DirChan.channel ()
     in
-      forever () (fn () => DirChan.send (outCh, c * DirChan.recv psF))
+      Pattern.repeat (fn _ => DirChan.send (outCh, c * DirChan.recv psF))
     ; inCh
     end
 
@@ -71,7 +64,7 @@ struct
           combine ignore (DirChan.sendEvt (out1, f), DirChan.sendEvt (out2, f))
         end
     in
-      forever () step
+      Pattern.repeat step
     ; (in1, in2)
     end
 

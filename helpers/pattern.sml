@@ -32,4 +32,27 @@ struct
       spawn (fn _ => thread chan)
     ; chan
     end
+
+  (**
+   * A stateful infinite loop. The next state is computed from the previous
+   * one by `f`. An initial state must be supplied.
+   *
+   * Similar in idea to the following infinite list, where `x` is the initial
+   * state.
+   *
+   * ```
+   * [x, f x, f (f x), f (f (f x)), f (f (f (f x))), ... ]
+   * ```
+   *)
+  fun forever initial f =
+    let
+      fun loop state = loop (f state)
+    in
+      ignore (spawn (fn () => loop initial))
+    end
+
+  (**
+   * A stateless infinite loop, i.e., it has no intermediate states.
+   *)
+  fun repeat f = forever () f
 end
