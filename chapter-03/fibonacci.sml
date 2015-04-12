@@ -31,7 +31,7 @@ struct
 
   fun delay start inCh outCh =
     let
-      fun loop NONE     = SOME (recv inCh)
+      fun loop NONE = SOME (recv inCh)
         | loop (SOME a) = (send (outCh, a); NONE)
     in
       Pattern.forever start loop
