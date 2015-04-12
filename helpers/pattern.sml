@@ -55,4 +55,14 @@ struct
    * A stateless infinite loop, i.e., it has no intermediate states.
    *)
   fun repeat f = forever () f
+
+  (**
+   * Nondeterministically synchronize on two events and then apply `f` to the
+   * produced values.
+   *)
+  fun combine f (evA, evB) =
+    select [
+      wrap (evA, fn a => f (a, sync evB)),
+      wrap (evB, fn b => f (sync evA, b))
+    ]
 end

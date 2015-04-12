@@ -6,12 +6,6 @@ structure PowerSeries =
 struct
   open CML
 
-  fun combine f (evA, evB) =
-    select [
-      wrap (evA, fn a => f (a, sync evB)),
-      wrap (evB, fn b => f (sync evA, b))
-    ]
-
   (**
    * Power series addition.
    *)
@@ -20,7 +14,7 @@ struct
       val (inCh, outCh) = DirChan.channel ()
       fun add (f, g) = DirChan.send (outCh, f + g)
     in
-      Pattern.repeat (fn _ => combine add (DirChan.recvEvt psF, DirChan.recvEvt psG))
+      Pattern.repeat (fn _ => Pattern.combine add (DirChan.recvEvt psF, DirChan.recvEvt psG))
     ; inCh
     end
 
@@ -61,7 +55,7 @@ struct
           val f = DirChan.recv psF
         in
           (* Q: Why does it have to sync on both sends here? *)
-          combine ignore (DirChan.sendEvt (out1, f), DirChan.sendEvt (out2, f))
+          Pattern.combine ignore (DirChan.sendEvt (out1, f), DirChan.sendEvt (out2, f))
         end
     in
       Pattern.repeat step
