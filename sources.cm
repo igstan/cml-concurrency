@@ -30,4 +30,5 @@ is
 
   (* Chapter 4 —————————————————————————————————————————————————————————————— *)
   chapter-04/merge-sort.sml
+  chapter-04/power-series.sml
   chapter-04/main.sml
