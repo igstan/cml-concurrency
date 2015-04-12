@@ -20,7 +20,10 @@ struct
    *)
   fun merge (inCh1, inCh2, outCh) =
     let
-      fun copy (fromCh, toCh) =
+      (**
+       * Drain all elements from `fromCh` into `toCh`
+       *)
+      fun drain (fromCh, toCh) =
         let
           fun loop NONE = send (toCh, NONE)
             | loop some = (send (toCh, some); loop (recv fromCh))
@@ -30,8 +33,8 @@ struct
       fun loop (from1, from2) =
         case (from1, from2) of
           (NONE, NONE) => send (outCh, NONE)
-        | (_, NONE) => (send (outCh, from1); copy (inCh1, outCh))
-        | (NONE, _) => (send (outCh, from2); copy (inCh2, outCh))
+        | (_, NONE) => (send (outCh, from1); drain (inCh1, outCh))
+        | (NONE, _) => (send (outCh, from2); drain (inCh2, outCh))
         | (SOME a, SOME b) =>
           if a < b
           then (send (outCh, from1); loop (recv inCh1, from2))
