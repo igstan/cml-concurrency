@@ -23,4 +23,17 @@ struct
     in
       RunCML.doit (entry, schedulingQuantum)
     end
+
+  fun idService () =
+    let
+      fun entry () =
+        let
+          val srvc = IDService.mkUIdSrc ()
+          val ids = List.tabulate (5, fn _ => srvc ())
+        in
+          ids |> list int |> println
+        end
+    in
+      RunCML.doit (entry, schedulingQuantum)
+    end
 end
