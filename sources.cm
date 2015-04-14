@@ -35,4 +35,5 @@ is
   chapter-04/merge-sort.sml
   chapter-04/power-series.sml
   chapter-04/id-service.sml
+  chapter-04/clock-server.fun
   chapter-04/main.sml
