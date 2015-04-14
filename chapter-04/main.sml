@@ -1,6 +1,7 @@
 structure Chapter04 =
 struct
-  open CML
+  open Fn infix 1 |>
+  open CML Show
 
   val schedulingQuantum = SOME (Time.fromMilliseconds 10)
 
@@ -18,12 +19,7 @@ struct
         end
 
       fun entry () =
-        let
-          fun println s = print (s ^ "\n")
-          val printNumber = println o Int.toString o valOf
-        in
-          List.app printNumber (sortList numbers)
-        end
+        sortList numbers |> list (option int) |> println
     in
       RunCML.doit (entry, schedulingQuantum)
     end
