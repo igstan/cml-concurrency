@@ -28,7 +28,7 @@ struct
     let
       fun entry () =
         let
-          val srvc = IDService.mkUIdSrc ()
+          val srvc = IDService.create ()
           val ids = List.tabulate (5, fn _ => srvc ())
         in
           ids |> list int |> println

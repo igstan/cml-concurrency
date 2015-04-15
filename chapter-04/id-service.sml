@@ -2,7 +2,7 @@ structure IDService =
 struct
   open CML
 
-  fun mkUIdSrc () =
+  fun create () =
     let
       val ch = channel ()
       fun loop i = (send (ch, i) ; loop (i + 1))

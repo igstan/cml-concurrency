@@ -25,7 +25,7 @@ struct
    *)
   fun create () =
     let
-      val idServer = IDService.mkUIdSrc ()
+      val idServer = IDService.create ()
       val reqCh = channel ()
       fun replyToAcquire (replyCh, abortEvt) =
         select [
