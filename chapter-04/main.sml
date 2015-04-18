@@ -5,10 +5,8 @@ struct
 
   val schedulingQuantum = SOME (Time.fromMilliseconds 10)
 
-  fun mergeSort () =
+  fun mergeSort numbers =
     let
-      val numbers = [4, 3, 2, 1, 5, 6, 7, 8]
-
       fun sortList numbers =
         let
           val sorter = MergeSort.mergeSort ()
