@@ -42,6 +42,15 @@ struct
     let
       val idServer = IDService.create ()
       val reqCh = channel ()
+
+      (*
+       * Whenever a client tries to acquire a lock, we must verify whether the
+       * client hasn't changed its mind up until now. We do that by synchronizing
+       * also on the `abortEvt` sent from the client.
+       *
+       * If it is still waiting, the it'll receive a unit value on the reply
+       * channel, which will unblock it, meaning that it has the lock now.
+       *)
       fun replyToAcquire (replyCh, abortEvt) =
         select [
           wrap (sendEvt (replyCh, ()), const true),
@@ -53,10 +62,18 @@ struct
           let in
             case Map.find (locks, lock) of
               NONE =>
+              (*
+               * The lock has no waiting list, we can try to lease the lock
+               * to the requesting client.
+               *)
               if replyToAcquire (replyCh, abortEvt)
               then server (Map.insert (locks, lock, ref []))
               else server locks
             | SOME pending =>
+              (*
+               * If there are pending clients, then add the current one at the
+               * end of the waiting queue.
+               *)
               let in
                 pending := !pending @ [(replyCh, abortEvt)];
                 server locks
@@ -64,13 +81,24 @@ struct
           end
         | REL lock =>
           let
+            (* Remove the lock from the list of held locks. *)
             val (locks', pending) = Map.remove (locks, lock)
+            (* Try to lease the lock to the next pending client. *)
             fun assign [] = locks'
               | assign (req :: r) =
                 if replyToAcquire req
                 then (pending := r; locks)
+                (*
+                 * This seems risky. If a client holds a lock for a longer
+                 * period of time, that lock may build up a huge waiting
+                 * list, so it might take a while for this recursive call to
+                 * finish. But maybe not significant enough to cause problems
+                 * for requests to other locks. It probably all depends on how
+                 * fast `replyToAcquire` is.
+                 *)
                 else assign r
           in
+            (* Continue serving with the updated list of held locks. *)
             server (assign (!pending))
           end
     in
@@ -92,6 +120,14 @@ struct
 
   (**
    * Send a lock acquisition request to the given server.
+   *
+   * Because the client may use selectively synchronize on this event, it
+   * might happen that by the time we can give it the lock, the client is
+   * no longer interested in it. At that point we have to release the lock,
+   * otherwise any other client awaiting for that lock will be starved.
+   *
+   * For this reason, we need to know when the client is no longer interested
+   * in the lock, and this is accomplished using a negative acknowledgment.
    *)
   fun acquireLockEvt (LOCK (id, SERVER { reqCh, ... })) =
     withNack (fn nack =>
