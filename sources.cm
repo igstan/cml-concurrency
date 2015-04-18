@@ -39,3 +39,6 @@ is
   chapter-04/lock-server.sig
   chapter-04/lock-server.sml
   chapter-04/main.sml
+
+  (* Chapter 5 —————————————————————————————————————————————————————————————— *)
+  chapter-05/main.sml
