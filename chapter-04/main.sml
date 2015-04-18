@@ -11,8 +11,13 @@ struct
         let
           val sorter = MergeSort.mergeSort ()
         in
+          (* send the numbers to sort *)
           List.app (fn i => send (sorter, SOME i)) numbers
+
+          (* mark the end of the stream *)
         ; send (sorter, NONE)
+
+          (* get the sorted numbers back *)
         ; Stream.takeList (length numbers) sorter
         end
 

@@ -4,8 +4,15 @@ struct
 
   structure Map = IntBinaryMap
 
+  (**
+   * A lock is identified by a number.
+   *)
   datatype lock = LOCK of int
 
+  (**
+   * The possible requests a client can send to the lock server. Both are hidden
+   * using procedural abstraction. See `releaseLock` and `acquireLockEvt`.
+   *)
   datatype req_msg =
     REL of int
   | ACQ of {
@@ -14,6 +21,12 @@ struct
       abortEvt : unit event
     }
 
+  (**
+   * The state of a server, consisting of:
+   *
+   * - a server for generating unique IDs, used to create new locks
+   * - a request channel, used by clients to send their requests
+   *)
   datatype server =
     SERVER of {
       idServer : unit -> int,
@@ -21,6 +34,8 @@ struct
     }
 
   (**
+   * Spawns a new lock server.
+   *
    * Based on listing 4.6 in the book.
    *)
   fun create () =
@@ -63,12 +78,21 @@ struct
     ; SERVER { idServer = idServer, reqCh = reqCh }
     end
 
+  (**
+   * Create a fresh lock under the given server.
+   *)
   fun produceLock (SERVER { idServer, ... }) =
     LOCK (idServer ())
 
+  (**
+   * Releases the given lock from the server.
+   *)
   fun releaseLock (SERVER { reqCh, ... }) (LOCK id) =
     send (reqCh, REL id)
 
+  (**
+   * Send a lock acquisition request to the given server.
+   *)
   fun acquireLockEvt (SERVER { reqCh, ... }) (LOCK id) =
     withNack (fn nack =>
       let
