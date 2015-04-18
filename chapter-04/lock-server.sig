@@ -5,6 +5,6 @@ sig
 
   val create : unit -> server
   val produceLock : server -> lock
-  val releaseLock : server -> lock -> unit
-  val acquireLockEvt : server -> lock -> unit CML.event
+  val releaseLock : lock -> unit
+  val acquireLockEvt : lock -> unit CML.event
 end
