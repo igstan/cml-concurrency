@@ -13,8 +13,9 @@ struct
         in
           MVar.put m 42
         ; MVar.get m |> int |> println
-        end handle
-          Put => println "MVar Put Exception"
+        ; MVar.put m 43
+        ; MVar.put m 44 handle Put => println "MVar Put Exception"
+        end
     in
       RunCML.doit (entry, schedulingQuantum)
     end
