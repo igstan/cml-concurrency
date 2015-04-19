@@ -45,4 +45,5 @@ is
   chapter-05/m-var.sml
   chapter-05/i-var.sig
   chapter-05/i-var.sml
+  chapter-05/future.sml
   chapter-05/main.sml
