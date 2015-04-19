@@ -41,4 +41,6 @@ is
   chapter-04/main.sml
 
   (* Chapter 5 —————————————————————————————————————————————————————————————— *)
+  chapter-05/m-var.sig
+  chapter-05/m-var.sml
   chapter-05/main.sml
