@@ -51,6 +51,7 @@ struct
 
   local
     structure Multicast = MailboxMulticast
+    (* structure Multicast = StreamMulticast *)
   in
     fun multicast () =
       let
