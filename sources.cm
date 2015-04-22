@@ -10,7 +10,7 @@ is
   $cml/unix-lib.cm   (* CML version of $/unix-lib.cm                          *)
   $cml/trace-cml.cm  (* CML debugging support.                                *)
 
-  (* External Dependecies ——————————————————————————————————————————————————— *)
+  (* External Projects —————————————————————————————————————————————————————— *)
   ../sml-extra/sources.cml.cm
 
   (* CML Helpers ———————————————————————————————————————————————————————————— *)
