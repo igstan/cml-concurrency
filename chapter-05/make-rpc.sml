@@ -49,6 +49,36 @@ struct
       RPC.Proc { client = client, serverEvt = serverEvt }
     end
 
+  fun mkRPCEvt f =
+    let
+      val reqCh = channel ()
+      fun client arg =
+        guard (fn () =>
+          let
+            val reply = SyncVar.iVar ()
+          in
+            wrap (
+              sendEvt (reqCh, (arg, reply)),
+              fn () => SyncVar.iGet reply
+            )
+          end
+        )
+      fun serverEvt state =
+        let
+          fun doCall (arg, replyV) =
+            let
+              val (newState, result) = f (state, arg)
+            in
+              SyncVar.iPut (replyV, result)
+            ; newState
+            end
+        in
+          wrap (recvEvt reqCh, doCall)
+        end
+    in
+      RPC.ProcEvent { client = client, serverEvt = serverEvt }
+    end
+
   fun mkServer initState operations =
     let
       fun loop state =
