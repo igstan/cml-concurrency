@@ -36,7 +36,7 @@ struct
 
       fun server outFn =
         case recv reqCh of
-          Message m => (outFn m; server outFn)
+          Message m => (outFn m ; server outFn)
         | NewPort =>
           let
             val (outFn', port) = mkPort outFn
