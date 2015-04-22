@@ -35,4 +35,17 @@ struct
     in
       RunCML.doit (entry, schedulingQuantum)
     end
+
+  fun streams () =
+    let
+      fun entry () =
+        let
+          val strm = EagerStream.fromTo 0 9
+          val nums = EagerStream.take 10 strm
+        in
+          list int nums |> println
+        end
+    in
+      RunCML.doit (entry, schedulingQuantum)
+    end
 end
