@@ -74,4 +74,21 @@ struct
         RunCML.doit (entry, schedulingQuantum)
       end
   end
+
+  fun cells () =
+    let
+      fun entry () =
+        let
+          open RPCCell
+          val cell = cell 0
+        in
+          put cell 1
+        ; put cell 2
+        ; put cell 3
+        ; put cell 4
+        ; print ("cell: "^ Int.toString (get cell) ^"\n")
+        end
+    in
+      RunCML.doit (entry, schedulingQuantum)
+    end
 end

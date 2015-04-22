@@ -54,4 +54,5 @@ is
   chapter-05/stream-multicast.sml
   chapter-05/make-rpc.sig
   chapter-05/make-rpc.sml
+  chapter-05/rpc-cell.sml
   chapter-05/main.sml
