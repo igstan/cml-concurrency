@@ -10,9 +10,9 @@ struct
   datatype ('a, 'b, 'c) proc =
     Proc of {
       (** The function used by the client. *)
-      call : 'b -> 'c,
+      client : 'b -> 'c,
       (** The function used by the server to advance its state. *)
-      entryEvt : 'a -> 'a CML.event
+      serverEvt : 'a -> 'a CML.event
     }
 end
 

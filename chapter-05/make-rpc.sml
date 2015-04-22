@@ -18,7 +18,7 @@ struct
        * the response and push it along with the argument on the requests
        * channel. Finally, block on reading the value from the I-var.
        *)
-      fun call arg =
+      fun client arg =
         let
           val reply = SyncVar.iVar ()
         in
@@ -33,7 +33,7 @@ struct
        * created by the client-side call and the next server state is
        * returned.
        *)
-      fun entryEvt state =
+      fun serverEvt state =
         let
           fun doCall (arg, replyV) =
             let
@@ -46,7 +46,7 @@ struct
           wrap (recvEvt reqCh, doCall)
         end
     in
-      RPC.Proc { call = call, entryEvt = entryEvt }
+      RPC.Proc { client = client, serverEvt = serverEvt }
     end
 
   fun mkServer initState operations =
