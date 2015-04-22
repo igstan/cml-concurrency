@@ -1,3 +1,6 @@
+(*
+ * Listing 5.6 in the book.
+ *)
 signature MULTICAST =
 sig
   type 'a mchan
