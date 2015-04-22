@@ -2,13 +2,13 @@ structure MailboxMulticast :> MULTICAST =
 struct
   open CML
 
-  structure MB = Mailbox
+  structure MBox = Mailbox
 
   datatype 'a request =
     Message of 'a
   | NewPort
 
-  datatype 'a port = Port of 'a MB.mbox
+  datatype 'a port = Port of 'a MBox.mbox
 
   datatype 'a mchan = MChan of 'a request chan * 'a port chan
 
@@ -19,13 +19,13 @@ struct
 
       fun mkPort outFn =
         let
-          val mbox = MB.mailbox ()
+          val mbox = MBox.mailbox ()
           val inCh = channel ()
           fun tee () =
             let
               val m = recv inCh
             in
-              MB.send (mbox, m)
+              MBox.send (mbox, m)
             ; outFn m
             ; tee ()
             end
@@ -57,5 +57,5 @@ struct
 
   fun multicast (MChan (reqCh, _), m) = send (reqCh, Message m)
 
-  fun recvEvt (Port mbox) = MB.recvEvt mbox
+  fun recvEvt (Port mbox) = MBox.recvEvt mbox
 end
