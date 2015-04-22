@@ -48,4 +48,25 @@ struct
     in
       RunCML.doit (entry, schedulingQuantum)
     end
+
+  fun multicast () =
+    let
+      fun entry () =
+        let
+          val mchan = Multicast.mChannel ()
+          fun child () =
+            Multicast.port mchan
+            |> Multicast.recvEvt
+            |> sync
+            |> int
+            |> println
+        in
+          spawn child
+        ; spawn child
+        ; spawn child
+        ; Multicast.multicast (mchan, 42)
+        end
+    in
+      RunCML.doit (entry, schedulingQuantum)
+    end
 end
