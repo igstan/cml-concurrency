@@ -1,4 +1,4 @@
-structure Multicast :> MULTICAST =
+structure MailboxMulticast :> MULTICAST =
 struct
   open CML
 

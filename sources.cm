@@ -50,5 +50,5 @@ is
   chapter-05/buffer-chan.sig
   chapter-05/buffer-chan.sml
   chapter-05/multicast.sig
-  chapter-05/multicast.sml
+  chapter-05/mailbox-multicast.sml
   chapter-05/main.sml
