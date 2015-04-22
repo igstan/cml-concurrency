@@ -47,4 +47,6 @@ is
   chapter-05/i-var.sml
   chapter-05/future.sml
   chapter-05/eager-stream.sml
+  chapter-05/buffer-chan.sig
+  chapter-05/buffer-chan.sml
   chapter-05/main.sml
