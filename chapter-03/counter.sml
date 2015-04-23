@@ -11,7 +11,7 @@ struct
         ; count (i + 1)
         end
     in
-      spawn (fn () => count start)
+      spawnc count start
     ; ch
     end
 end

@@ -83,7 +83,7 @@ struct
           ; server outFn'
           end
     in
-      spawn (fn () => server ignore)
+      spawnc server ignore
     ; MChan (reqCh, replyCh)
     end
 

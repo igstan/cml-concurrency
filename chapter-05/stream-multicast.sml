@@ -53,7 +53,7 @@ struct
             ; tee nextIV
             end
         in
-          spawn (fn () => tee iv)
+          spawnc tee iv
         ; Port outCh
         end
 

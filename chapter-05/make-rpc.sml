@@ -91,6 +91,6 @@ struct
           loop newState
         end
     in
-      ignore (spawn (fn () => loop initState))
+      ignore (spawnc loop initState)
     end
 end

@@ -20,7 +20,7 @@ struct
    * let
    *   val chan = channel ()
    * in
-   *   spawn (fn _ => send (chan, "Hello!"))
+   *   spawn (fn () => send (chan, "Hello!"))
    * ; chan
    * end
    * ```
@@ -29,7 +29,7 @@ struct
     let
       val chan = channel ()
     in
-      spawn (fn _ => thread chan)
+      spawnc thread chan
     ; chan
     end
 
@@ -48,7 +48,7 @@ struct
     let
       fun loop state = loop (f state)
     in
-      ignore (spawn (fn () => loop initial))
+      ignore (spawnc loop initial)
     end
 
   (**

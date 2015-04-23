@@ -13,7 +13,7 @@ struct
         ; count (producer prev)
         end
     in
-      spawn (fn () => count start)
+      spawnc count start
     ; ch
     end
 

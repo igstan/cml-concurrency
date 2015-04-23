@@ -37,7 +37,7 @@ struct
       val (inCh, outCh) = DirChan.channel ()
       fun loop () = (DirChan.send (outCh, DirChan.recv psF); loop ())
     in
-      spawn (fn _ => DirChan.send (outCh, 0); loop ())
+      spawn (fn () => DirChan.send (outCh, 0); loop ())
     ; inCh
     end
 

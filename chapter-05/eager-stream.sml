@@ -42,7 +42,7 @@ struct
         then loop (extendStream iv i, i + 1)
         else terminateStream iv
     in
-      spawn (fn _ => loop (iv, i))
+      spawnc loop (iv, i)
     ; strm
     end
 end

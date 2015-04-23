@@ -7,7 +7,7 @@ struct
       val ch = channel ()
       fun loop i = (send (ch, i) ; loop (i + 1))
     in
-      spawn (fn () => loop 0)
+      spawnc loop 0
     ; fn () => recv ch
     end
 end

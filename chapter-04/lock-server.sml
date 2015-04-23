@@ -102,7 +102,7 @@ struct
             server (assign (!pending))
           end
     in
-      spawn (fn () => server Map.empty)
+      spawnc server Map.empty
     ; SERVER { idServer = idServer, reqCh = reqCh }
     end
 
