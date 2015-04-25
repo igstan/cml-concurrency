@@ -1,5 +1,7 @@
 group
-
+  structure Chapter03
+  structure Chapter04
+  structure Chapter05
 is
   (* CML ———————————————————————————————————————————————————————————————————— *)
   $cml/cml.cm        (* CML core                                              *)
