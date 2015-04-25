@@ -11,6 +11,8 @@ struct
     Proc of {
       (** The function used by the client. *)
       client : 'b -> 'c,
+      (** Conditional function used by the client. *)
+      clientCond: 'b -> 'c option,
       (** The function used by the server to advance its state. *)
       serverEvt : 'a -> 'a CML.event
     }

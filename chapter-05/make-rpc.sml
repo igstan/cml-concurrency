@@ -26,6 +26,15 @@ struct
         ; SyncVar.iGet reply
         end
 
+      fun clientCond arg =
+        let
+          val reply = SyncVar.iVar ()
+        in
+          if sendPoll (reqCh, (arg, reply))
+          then SOME (SyncVar.iGet reply)
+          else NONE
+        end
+
       (*
        * The server-side implementation of the operation simply calls the
        * passed in transition function with the current server state and
@@ -46,7 +55,11 @@ struct
           wrap (recvEvt reqCh, doCall)
         end
     in
-      RPC.Proc { client = client, serverEvt = serverEvt }
+      RPC.Proc {
+        client = client,
+        clientCond = clientCond,
+        serverEvt = serverEvt
+      }
     end
 
   fun mkRPCEvt f =
