@@ -48,7 +48,7 @@ struct
        * client hasn't changed its mind up until now. We do that by synchronizing
        * also on the `abortEvt` sent from the client.
        *
-       * If it is still waiting, the it'll receive a unit value on the reply
+       * If it is still waiting, then it'll receive a unit value on the reply
        * channel, which will unblock it, meaning that it has the lock now.
        *)
       fun replyToAcquire (replyCh, abortEvt) =
