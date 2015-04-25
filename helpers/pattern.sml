@@ -65,4 +65,10 @@ struct
       wrap (evA, fn a => f (a, sync evB)),
       wrap (evB, fn b => f (sync evA, b))
     ]
+
+  (**
+   * Execute `action` after a `timeout` period of `time`.
+   *)
+  fun delay timeout action state =
+    wrap (atTimeEvt timeout, fn () => action state)
 end
